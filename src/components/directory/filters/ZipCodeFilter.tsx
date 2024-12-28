@@ -7,10 +7,20 @@ interface ZipCodeFilterProps {
 }
 
 export function ZipCodeFilter({ currentZip, onUpdate }: ZipCodeFilterProps) {
+  const [inputValue, setInputValue] = React.useState(currentZip);
+
+  // Update local input value when currentZip prop changes
+  React.useEffect(() => {
+    setInputValue(currentZip);
+  }, [currentZip]);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newZip = e.target.value.slice(0, 5);
-    if (newZip.length === 5 && newZip !== currentZip) {
-      onUpdate(newZip);
+    const newValue = e.target.value.slice(0, 5);
+    setInputValue(newValue);
+    
+    // Only trigger the update when we have a valid ZIP code
+    if (newValue.length === 5) {
+      onUpdate(newValue);
     }
   };
 
@@ -20,7 +30,7 @@ export function ZipCodeFilter({ currentZip, onUpdate }: ZipCodeFilterProps) {
       <div className="relative">
         <input
           type="text"
-          value={currentZip}
+          value={inputValue}
           onChange={handleChange}
           placeholder="Enter ZIP code"
           className="w-full bg-white border border-gray-300 rounded-md py-2 pl-9 pr-3 text-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
