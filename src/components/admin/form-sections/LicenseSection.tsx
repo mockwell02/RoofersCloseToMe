@@ -19,13 +19,12 @@ export function LicenseSection({ formData, onChange }: LicenseSectionProps) {
 
   return (
     <div className="bg-white rounded-lg shadow p-6">
-      <h2 className="text-lg font-semibold mb-4">License Information</h2>
+      <h2 className="text-lg font-semibold mb-4">License Information (Optional)</h2>
       <div className="space-y-4">
         <FormInput
           label="License Number"
           value={formData.license_number}
           onChange={(e) => onChange({ license_number: e.target.value })}
-          required
         />
         
         <FormSelect
@@ -33,7 +32,6 @@ export function LicenseSection({ formData, onChange }: LicenseSectionProps) {
           value={formData.license_type}
           onChange={(e) => onChange({ license_type: e.target.value })}
           options={licenseTypes}
-          required
         />
       </div>
     </div>

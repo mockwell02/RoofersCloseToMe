@@ -2,6 +2,7 @@ import React from 'react';
 import { X } from 'lucide-react';
 import { FormInput } from '../../forms/FormInput';
 import { FormSelect } from '../../forms/FormSelect';
+import { ProjectImageUploader } from '../../media/ProjectImageUploader';
 
 interface ProjectImage {
   url: string;
@@ -23,11 +24,11 @@ export function ProjectGallerySection({ formData, onChange }: ProjectGallerySect
     { value: 'process', label: 'In Progress' }
   ];
 
-  const addImage = () => {
+  const handleImageUpload = (url: string) => {
     onChange({
       project_gallery: [
         ...formData.project_gallery,
-        { url: '', description: '', type: 'after' }
+        { url, description: '', type: 'after' }
       ]
     });
   };
@@ -46,29 +47,25 @@ export function ProjectGallerySection({ formData, onChange }: ProjectGallerySect
 
   return (
     <div className="bg-white rounded-lg shadow p-6">
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="text-lg font-semibold">Project Gallery</h2>
-        <button
-          type="button"
-          onClick={addImage}
-          className="text-sm text-blue-600 hover:text-blue-800"
-        >
-          + Add Image
-        </button>
-      </div>
+      <h2 className="text-lg font-semibold mb-4">Project Gallery</h2>
+      
+      <ProjectImageUploader 
+        onUploadComplete={handleImageUpload}
+        onError={(error) => console.error('Upload error:', error)}
+      />
 
-      <div className="space-y-6">
+      <div className="mt-6 space-y-6">
         {formData.project_gallery.map((image, index) => (
           <div key={index} className="flex gap-4 items-start border-t pt-4">
-            <div className="flex-1 space-y-4">
-              <FormInput
-                label="Image URL"
-                type="url"
-                value={image.url}
-                onChange={(e) => updateImage(index, 'url', e.target.value)}
-                required
+            <div className="w-32 h-32 relative">
+              <img
+                src={image.url}
+                alt={image.description}
+                className="w-full h-full object-cover rounded-lg"
               />
-              
+            </div>
+            
+            <div className="flex-1 space-y-4">
               <FormInput
                 label="Description"
                 value={image.description}
@@ -88,7 +85,7 @@ export function ProjectGallerySection({ formData, onChange }: ProjectGallerySect
             <button
               type="button"
               onClick={() => removeImage(index)}
-              className="mt-8 text-gray-400 hover:text-gray-600"
+              className="text-gray-400 hover:text-gray-600"
             >
               <X className="h-5 w-5" />
             </button>

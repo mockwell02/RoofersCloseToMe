@@ -1,55 +1,21 @@
-export interface BusinessHours {
-  day: string;
-  hours: string;
-}
-
-export interface ServiceArea {
-  zipCode: string;
-  neighborhood: string;
-}
-
-export interface Certification {
+// Add this interface to the existing file
+export interface RooferFormData {
   name: string;
-  issuer: string;
-  year: number;
-}
-
-export interface ProjectImage {
-  url: string;
   description: string;
-  type: 'before' | 'after' | 'process';
-}
-
-export interface Roofer {
-  id: string;
-  name: string;
-  logo: string;
+  logo_url: string;
+  owner_message: string;
+  video_url: string;
+  phone: string;
+  email: string;
+  website: string;
+  years_in_business: number;
   rating: number;
-  reviewCount: number;
-  yearsInBusiness: number;
-  description: string;
+  review_count: number;
   specialties: string[];
-  imageUrl: string;
-  distance: number;
-  videoUrl?: string;
-  ownerMessage?: string;
-  contact: {
-    phone: string;
-    email: string;
-    website: string;
-  };
-  businessHours: BusinessHours[];
-  license: {
-    number: string;
-    type: string;
-    verified: boolean;
-  };
-  insurance: {
-    liability: boolean;
-    workersComp: boolean;
-    coverage: string;
-  };
-  serviceAreas: ServiceArea[];
+  license_number: string;
+  license_type: string;
+  insurance_coverage: string;
+  service_areas: ServiceArea[];
   certifications: Certification[];
-  projectGallery: ProjectImage[];
+  project_gallery: ProjectImage[];
 }

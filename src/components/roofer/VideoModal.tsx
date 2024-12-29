@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { X } from 'lucide-react';
+import { VideoPlayer } from './video/VideoPlayer';
 
 interface VideoModalProps {
   isOpen: boolean;
@@ -42,12 +43,7 @@ export function VideoModal({ isOpen, onClose, videoUrl }: VideoModalProps) {
           </button>
           
           <div className="relative aspect-video rounded-lg overflow-hidden bg-black">
-            <iframe
-              src={videoUrl}
-              className="absolute inset-0 w-full h-full"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            />
+            <VideoPlayer url={videoUrl} />
           </div>
         </div>
       </div>

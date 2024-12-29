@@ -12,7 +12,7 @@ interface RatingSectionProps {
 export function RatingSection({ formData, onChange }: RatingSectionProps) {
   return (
     <div className="bg-white rounded-lg shadow p-6">
-      <h2 className="text-lg font-semibold mb-4">Ratings & Reviews</h2>
+      <h2 className="text-lg font-semibold mb-4">Ratings & Reviews (Optional)</h2>
       <div className="space-y-4">
         <FormInput
           label="Rating (0-5)"
@@ -22,7 +22,6 @@ export function RatingSection({ formData, onChange }: RatingSectionProps) {
           step={0.1}
           value={formData.rating || ''}
           onChange={(e) => onChange({ rating: e.target.value ? parseFloat(e.target.value) : 0 })}
-          required
         />
         
         <FormInput
@@ -31,7 +30,6 @@ export function RatingSection({ formData, onChange }: RatingSectionProps) {
           min={0}
           value={formData.review_count || ''}
           onChange={(e) => onChange({ review_count: e.target.value ? parseInt(e.target.value) : 0 })}
-          required
         />
       </div>
     </div>

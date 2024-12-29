@@ -1,38 +1,26 @@
 import { Roofer } from '../../types/roofer';
 
 export function transformRooferData(roofer: any): Roofer {
-  // Ensure service_areas is an array
+  // Parse service_areas
   let serviceAreas = [];
   try {
-    if (typeof roofer.service_areas === 'string') {
-      serviceAreas = JSON.parse(roofer.service_areas);
-    } else if (Array.isArray(roofer.service_areas)) {
-      serviceAreas = roofer.service_areas;
-    }
+    serviceAreas = parseJsonField(roofer.service_areas);
   } catch (e) {
     console.error('Error parsing service_areas:', e);
   }
 
-  // Ensure certifications is an array
+  // Parse certifications
   let certifications = [];
   try {
-    if (typeof roofer.certifications === 'string') {
-      certifications = JSON.parse(roofer.certifications);
-    } else if (Array.isArray(roofer.certifications)) {
-      certifications = roofer.certifications;
-    }
+    certifications = parseJsonField(roofer.certifications);
   } catch (e) {
     console.error('Error parsing certifications:', e);
   }
 
-  // Ensure project_gallery is an array
+  // Parse project_gallery
   let projectGallery = [];
   try {
-    if (typeof roofer.project_gallery === 'string') {
-      projectGallery = JSON.parse(roofer.project_gallery);
-    } else if (Array.isArray(roofer.project_gallery)) {
-      projectGallery = roofer.project_gallery;
-    }
+    projectGallery = parseJsonField(roofer.project_gallery);
   } catch (e) {
     console.error('Error parsing project_gallery:', e);
   }
@@ -69,4 +57,14 @@ export function transformRooferData(roofer: any): Roofer {
     videoUrl: roofer.video_url || '',
     ownerMessage: roofer.owner_message || ''
   };
+}
+
+function parseJsonField(field: any) {
+  if (typeof field === 'string') {
+    return JSON.parse(field);
+  }
+  if (Array.isArray(field)) {
+    return field;
+  }
+  return [];
 }
